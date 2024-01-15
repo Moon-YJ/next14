@@ -16,11 +16,9 @@ export default function Header() {
 				<Link href='/'>ABC Company</Link>
 			</h1>
 
-			<nav>
-				<Nav pages={['about', 'youtube', 'post']} />
-				{/* <NoSsrNav pages={['about', 'youtube', 'post']} /> */}
-				<BtnLogin session={false} />
-			</nav>
+			<Nav pages={['about', 'youtube', 'post']} />
+			{/* <NoSsrNav pages={['about', 'youtube', 'post']} /> */}
+			<BtnLogin session={true} />
 		</header>
 	);
 }

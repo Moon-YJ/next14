@@ -1,2 +1,25 @@
-.btnLogin {
+.btn {
+	display: inline-block;
+	height: 30px;
+	padding: 0 20px;
+	font-size: 0.8rem;
+	background-color: transparent;
+	border: 1px solid var(--text);
+	border-radius: 15px;
+	cursor: pointer;
+	transition: background-color 0.3s, border 0.3s;
+	&:hover {
+		background-color: var(--point);
+		color: var(--bg);
+		border: 1px solid transparent;
+	}
+	&.logout {
+		background-color: var(--text);
+		color: var(--bg);
+		&:hover {
+			background-color: var(--point);
+			color: var(--bg);
+			border: 1px solid transparent;
+		}
+	}
 }
