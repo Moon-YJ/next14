@@ -1,5 +1,6 @@
 import { Inter } from 'next/font/google';
-import './globals.scss';
+import '@/styles/globals.scss';
+// 해당 경로는 jsconfig.json 파일에 설정되어있음
 
 const inter = Inter({ subsets: ['latin'] });
 
