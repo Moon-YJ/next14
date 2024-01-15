@@ -3,8 +3,8 @@ import styles from './youtube.module.scss';
 
 export default function Youtube() {
 	return (
-		<div className={clsx(styles.youtube)}>
+		<section className={clsx(styles.youtube)}>
 			<h1>Youtube</h1>
-		</div>
+		</section>
 	);
 }
