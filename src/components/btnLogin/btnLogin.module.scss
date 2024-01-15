@@ -8,18 +8,19 @@
 	border-radius: 15px;
 	cursor: pointer;
 	transition: background-color 0.3s, border 0.3s;
+	&.logout {
+		background-color: var(--text);
+		color: var(--bg);
+	}
 	&:hover {
 		background-color: var(--point);
 		color: var(--bg);
 		border: 1px solid transparent;
 	}
-	&.logout {
-		background-color: var(--text);
-		color: var(--bg);
-		&:hover {
-			background-color: var(--point);
-			color: var(--bg);
-			border: 1px solid transparent;
-		}
+}
+
+@media (max-width: $tablet) {
+	.btn {
+		margin-left: auto;
 	}
 }
