@@ -15,22 +15,13 @@ export default function YoutubeCard({ data, isPriority }) {
 				{/* 외부 이미지 연결시 next.config.js파일에 이미지 protocol, hostname 등록해야함(next remotepatterns 참고), fill, sizes, priority도 등록해야함 */}
 				{/* fill속성 적용시 무조건 부모요소에 position: relative, absolute, fixed 설정되어있어야함 */}
 				<Link href={`/detail/${data.id}`}>
-					{isPriority ? (
-						<Image
-							src={data.snippet.thumbnails.standard.url}
-							alt={data.snippet.title}
-							fill
-							sizes='(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw'
-							priority
-						/>
-					) : (
-						<Image
-							src={data.snippet.thumbnails.standard.url}
-							alt={data.snippet.title}
-							fill
-							sizes='(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw'
-						/>
-					)}
+					<Image
+						src={data.snippet.thumbnails.standard.url}
+						alt={data.snippet.title}
+						fill
+						sizes='(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw'
+						priority={isPriority}
+					/>
 				</Link>
 			</div>
 			<h2>{shortenText(data.snippet.title, 50)}</h2>
