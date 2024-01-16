@@ -12,10 +12,8 @@ let isConnected = false;
 export const connectDB = async () => {
 	// https://mongoosejs.com/docs/connections.html (mongoose 가이드 문서 참고)
 	try {
-		if (isConnected) {
-			console.log('already connected');
-			return;
-		}
+		if (isConnected) return console.log('already connected');
+
 		const db = await mongoose.connect(process.env.MONGO_URL);
 		isConnected = db.connections[0].readyState;
 	} catch (error) {
