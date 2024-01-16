@@ -26,16 +26,6 @@ export default async function Youtube() {
 
 				return (
 					<article key={data.id + idx}>
-						<h2>{shortenText(data.snippet.title, 50)}</h2>
-
-						<div className={styles.txt}>
-							<p>{shortenText(data.snippet.description, 250)}</p>
-							<div className='infoBox'>
-								<span>{customText(date, '.')}</span>
-								<em>{time.split('Z')[0]}</em>
-							</div>
-						</div>
-
 						<div className={styles.pic}>
 							{/* 외부 이미지 연결시 next.config.js파일에 이미지 protocol, hostname 등록해야함(next remotepatterns 참고), fill, sizes, priority도 등록해야함 */}
 							{/* fill속성 적용시 무조건 부모요소에 position: relative, absolute, fixed 설정되어있어야함 */}
@@ -46,6 +36,14 @@ export default async function Youtube() {
 								priority
 								alt={data.snippet.title}
 							/>
+						</div>
+						<h2>{shortenText(data.snippet.title, 50)}</h2>
+						<div className={styles.txt}>
+							<p>{shortenText(data.snippet.description, 250)}</p>
+							<div className={styles.infoBox}>
+								<span>{customText(date, '.')}</span>
+								{/* <em>{time.split('Z')[0]}</em> */}
+							</div>
 						</div>
 					</article>
 				);
