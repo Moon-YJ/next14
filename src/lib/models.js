@@ -11,7 +11,7 @@ const postSchema = new mongoose.Schema(
 			required: true
 		},
 		img: {
-			type: String
+			type: String // 이미지는 optional(default가 required: false)
 		}
 	},
 	{ timestamps: true } // 시간 저장되게
