@@ -6,6 +6,7 @@
 */
 
 const mongoose = require('mongoose'); // require: ES6 이전의 import 구문
+// import mongoose from 'mongoose' 와 같은 구문임
 let isConnected = false;
 
 export const connectDB = async () => {
