@@ -7,18 +7,7 @@
 	height: 100px;
 	border-bottom: 1px solid var(--text);
 	h1 {
-		width: 30%;
+		width: 35%;
 		font-size: 1.5rem;
-	}
-	.btnMenu {
-		display: none;
-	}
-}
-
-@media (max-width: $tablet) {
-	.header {
-		.btnMenu {
-			display: block;
-		}
 	}
 }

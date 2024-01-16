@@ -1,0 +1,15 @@
+.mobileMenu {
+	z-index: 5;
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 280px;
+	height: 100vh;
+	padding: 40px;
+	color: var(--bg);
+	background-color: var(--text);
+	h1 {
+		font-weight: 400;
+		font-size: 2rem;
+	}
+}
