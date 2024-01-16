@@ -38,7 +38,7 @@
 
 @media (max-width: $tablet) {
 	.youtubeCard {
-		width: 45%;
+		width: 45% !important;
 		.pic {
 			height: 20vmin;
 		}
@@ -47,7 +47,7 @@
 
 @media (max-width: $mobile) {
 	.youtubeCard {
-		width: 100%;
+		width: 100% !important;
 		.pic {
 			height: 35vmin;
 		}
