@@ -9,7 +9,7 @@ export const getPosts = async id => {
 		connectDB();
 		let posts = null;
 		if (id) posts = await Post.findById(id);
-		else posts = await Post.find();
+		else posts = await Post.find().sort({ _id: -1 }); // .sort({ _id: -1 }) => post 최신순으로 뜨게 처리
 		return posts;
 	} catch (error) {
 		console.log(error);
@@ -31,4 +31,19 @@ export const addPosts = async data => {
 	}
 	revalidatePath('/post'); // 원래는 서버쪽에서 build된 후 static한 데이터로 남아있으므로 revalidatePath 설정하여 해당 path 접속시 서버쪽 내용 갱신
 	redirect('/post'); // post 목록페이지로 이동
+};
+
+export const deletePost = async formData => {
+	'use server';
+	try {
+		const data = Object.fromEntries(formData);
+		const id = Object.keys(data)[0];
+		// findByIdAndDelete 메서드로 삭제할 document의 _id의 value값 전달
+		await Post.findByIdAndDelete(id);
+	} catch (err) {
+		console.log(err);
+		throw new Error('Failed to delete post');
+	}
+	revalidatePath('/post');
+	redirect('/post');
 };
