@@ -10,7 +10,7 @@ import BtnMobileMenu from '../btnMobileMenu/BtnMobileMenu';
 //const NoSsrNav = dynamic(() => import('@/components/nav/Nav'), { ssr: false });
 
 export default function Header() {
-	console.log('header'); // 서버 터미널에 찍힘
+	//console.log('header'); // 서버 터미널에 찍힘
 	return (
 		<header className={clsx(styles.header)}>
 			<h1>

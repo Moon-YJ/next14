@@ -14,9 +14,9 @@ import { useCustomText } from '@/hooks/useText';
 
 export default function Nav({ pages }) {
 	const pathName = usePathname();
-	console.log('nav'); // 브라우저 콘솔창에 찍힘(nav만 동적으로 가져옴)
+	//console.log('nav'); // 브라우저 콘솔창에 찍힘(nav만 동적으로 가져옴)
 	const time = new Date().getTime();
-	console.log(time, '::time');
+	//console.log(time, '::time');
 	const [Client, setClient] = useState(false);
 
 	const customTxt = useCustomText('combined');

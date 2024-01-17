@@ -17,6 +17,25 @@ export const getPosts = async id => {
 	}
 };
 
+// 인수로 받은 현재 페이지번호에 따라 다음의 정보를 반환하는 함수
+// {전체 데이터 개수, 출력될 포스트 배열, 현재페이지에 보일 데이터 개수}
+export const getPostsPage = async page => {
+	const nums = 3; // 한 페이지당 보일 post 개수 설정
+
+	try {
+		connectDB();
+		const total = await Post.find().sort({ _id: -1 }).count(); // 전체 데이터 개수
+		const posts = await Post.find()
+			.sort({ _id: -1 })
+			.limit(nums) // nums 개수만큼 데이터 출력 제한
+			.skip(nums * (page - 1)); // 현재 페이지 번호에 따라 출력한 데이터의 시작순번 지정해서 스킵할 데이터수 지정 (.limit()과 세트, ex. 첫번째 페이지면 1-1=0번째 데이터 부터 출력(0,1,2), 두번째 페이지는 2-1=1 * 3번째 데이터부터 출력)
+		return { total, posts, nums };
+	} catch (err) {
+		console.log(err);
+		throw new Error('Fail to fetch All posts data!!');
+	}
+};
+
 export const addPosts = async data => {
 	'use server'; // 서버쪽에 데이터를 요청해야하므로 해당 구문 추가
 	//console.log(data); // 브라우저 콘솔창이 아닌 서버 터미널에서 확인 가능 //결과 - { name: 'title', value: 'ㅁㅁ' }, { name: 'img', value: 'ㅁㅁㅁ' }, { name: 'desc', value: 'ㅁㅁㅁ' }
