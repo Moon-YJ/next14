@@ -1,6 +1,8 @@
 // action.js파일부터는 required말고 import 사용해도 됨(next가 제어하는 next의 기능이므로, connectDB.js와 model.js는 next의 기능이 아니므로 required 씀)
+import { revalidatePath } from 'next/cache';
 import { connectDB } from './connectDB';
 import { Post } from './models';
+import { redirect } from 'next/navigation';
 
 export const getPosts = async id => {
 	try {
@@ -27,4 +29,6 @@ export const addPosts = async data => {
 	} catch (err) {
 		throw new Error('Failed to save a post');
 	}
+	revalidatePath('/post'); // 원래는 서버쪽에서 build된 후 static한 데이터로 남아있으므로 revalidatePath 설정하여 해당 path 접속시 서버쪽 내용 갱신
+	redirect('/post'); // post 목록페이지로 이동
 };

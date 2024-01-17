@@ -17,14 +17,7 @@ export default async function Post() {
 				return (
 					<article key={post._id}>
 						<div className={clsx(styles.pic)}>
-							{post.img ? (
-								<Image src={post.img} alt={post.title} priority fill sizes='(max-width: 768px) 60vw, (max-width: 1200px) 40vw, 30vw' />
-							) : (
-								<>
-									<span></span>
-									<span></span>
-								</>
-							)}
+							{post.img && <Image src={post.img} alt={post.title} priority fill sizes='(max-width: 768px) 60vw, (max-width: 1200px) 40vw, 30vw' />}
 						</div>
 						<h2>
 							<Link href={`/post/${post._id}`}>{post.title}</Link>
