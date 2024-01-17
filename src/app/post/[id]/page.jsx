@@ -11,7 +11,11 @@ export default async function PostDetail({ params }) {
 			<h1>Post Detail</h1>
 			<article key={post._id}>
 				<div className={clsx(styles.pic)}>
-					{post.img && <Image src={post.img} alt={post.title} priority fill sizes='(max-width: 768px) 60vw, (max-width: 1200px) 40vw, 30vw' />}
+					{post.img ? (
+						<Image src={post.img} alt={post.title} priority fill sizes='(max-width: 768px) 60vw, (max-width: 1200px) 40vw, 30vw' />
+					) : (
+						<span></span>
+					)}
 				</div>
 				<div className={clsx(styles.txt)}>
 					<h2>{post.title}</h2>
