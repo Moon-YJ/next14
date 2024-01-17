@@ -47,3 +47,21 @@ export const deletePost = async formData => {
 	revalidatePath('/post');
 	redirect('/post');
 };
+
+export const updatePost = async formData => {
+	'use server';
+	try {
+		// 수정페이지에서 입력한 input항목들을 받아서 객체로 비구조화할당
+		const { id, title, img, desc } = Object.fromEntries(formData);
+		// 전달받은 각각의 값들을 새로운 객체(key:value)로 wrapping 처리
+		// {id: 'id', title: 'title', img: 'img', desc: 'desc'}
+		const updateObj = { title, img, desc }; // id 값은 어차피 같으니까 굳이 넣어서 덮어쓰기할 필요 없음
+		// 모델명.findByIdAndUpdate('ObjectId.valule', {수정할 document의 key: 수정할 value, ...})
+		await Post.findByIdAndUpdate(id, updateObj);
+	} catch (err) {
+		console.log(err);
+		throw new Error('Failed to update post');
+	}
+	revalidatePath('/post');
+	redirect('/post');
+};

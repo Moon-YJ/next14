@@ -5,7 +5,7 @@ import { addPosts } from '@/lib/actions';
 export default function Write() {
 	return (
 		<section className={clsx(styles.write)}>
-			<h1>Write Posts</h1>
+			<h1>Write New Posts</h1>
 			<form action={addPosts}>
 				<input type='text' placeholder='title' name='title' />
 				<input type='text' placeholder='image URL' name='img' />
