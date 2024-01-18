@@ -17,8 +17,19 @@ const postSchema = new mongoose.Schema(
 	{ timestamps: true } // 시간 저장되게
 );
 
+const userSchema = new mongoose.Schema(
+	{
+		username: { type: String, required: true },
+		email: { type: String, required: true },
+		password: { type: String },
+		img: { type: String }
+	},
+	{ timestamps: true }
+);
+
 // mongoose.models.Post가 undefined일때 오른쪽 실행(mongoose.models.Post의 값이 있으면 실행하지 않음 => Post값이 있을때 중복호출 방지)
 export const Post = mongoose.models.Post || mongoose.model('Post', postSchema);
+export const User = mongoose.models.User || mongoose.model('User', userSchema);
 
 /*
   - DB 종류
