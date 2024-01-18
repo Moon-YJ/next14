@@ -8,8 +8,12 @@ export const GlobalContext = createContext(null);
 // 전역객체 생성후 특정 state값들을 내부로 전달해주는 wrapping component 생성
 export function GlobalProvider({ children }) {
 	const [MenuOpen, setMenuOpen] = useState(false);
+	const [ImgPanelOpen, setImgPanelOpen] = useState(false);
+	const [ImgUrl, setImgUrl] = useState('');
 
-	return <GlobalContext.Provider value={{ MenuOpen, setMenuOpen }}>{children}</GlobalContext.Provider>;
+	return (
+		<GlobalContext.Provider value={{ MenuOpen, setMenuOpen, ImgPanelOpen, setImgPanelOpen, ImgUrl, setImgUrl }}>{children}</GlobalContext.Provider>
+	);
 }
 
 // GlobalContext의 값을 호출할 수 있는 custom hook

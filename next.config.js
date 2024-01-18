@@ -12,7 +12,8 @@ const nextConfig = {
 		remotePatterns: [
 			{ protocol: 'https', hostname: 'i.ytimg.com' },
 			{ protocol: 'https', hostname: 'images.unsplash.com' },
-			{ protocol: 'https', hostname: 'plus.unsplash.com' } // 유료 이미지용 서버 호스트
+			{ protocol: 'https', hostname: 'plus.unsplash.com' }, // 유료 이미지용 서버 호스트
+			{ protocol: 'https', hostname: 'live.staticflickr.com' }
 		]
 	}
 };
