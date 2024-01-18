@@ -12,7 +12,7 @@ import styles from './nav.module.scss';
 import { useEffect, useState } from 'react';
 import { useCustomText } from '@/hooks/useText';
 
-export default function Nav({ pages }) {
+export default function Nav({ pages, session }) {
 	const pathName = usePathname();
 	//console.log('nav'); // 브라우저 콘솔창에 찍힘(nav만 동적으로 가져옴)
 	const time = new Date().getTime();
@@ -27,6 +27,7 @@ export default function Nav({ pages }) {
 
 	return (
 		<nav className={clsx(styles.nav)}>
+			{session?.user ? '로그인됨' : '비로그인상태'}
 			{/* 해결방법1 */}
 			{pages.map(page => (
 				<Link key={page} href={`/${page}`} className={clsx(pathName === `/${page}` ? styles.on : '')}>

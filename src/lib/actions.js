@@ -7,6 +7,7 @@ import { connectDB } from './connectDB';
 import { Post, User } from './models';
 import { redirect } from 'next/navigation';
 import bcrypt from 'bcryptjs';
+import { signIn, signOut } from './auth';
 
 // post
 export const getPosts = async id => {
@@ -87,20 +88,69 @@ export const updatePost = async formData => {
 	redirect('/post');
 };
 
-// user
 // npm i bcryptjs
-export const addUsers = async data => {
-	const { username, email, password, repassword } = Object.fromEntries(data);
-	if (password !== repassword) return;
-	const salt = await bcrypt.genSalt(10);
-	const hashedPassword = await bcrypt.hash(password, salt); // 암호화 처리
+//User 데이터 추가 서버액션 함수
+export const addUser = async (previousState, formData) => {
+	const { username, email, password, img, repassword } = Object.fromEntries(formData);
+
+	if (password !== repassword) {
+		return { error: 'Passwords do not match' };
+	}
+
 	try {
 		connectDB();
-		const newUser = new User({ username, email, password: hashedPassword });
+
+		const user = await User.findOne({ username });
+
+		if (user) {
+			return { error: 'Username already exists' };
+		}
+
+		const salt = await bcrypt.genSalt(10);
+		const hashedPassword = await bcrypt.hash(password, salt);
+
+		const newUser = new User({
+			username,
+			email,
+			password: hashedPassword,
+			img
+		});
+
 		await newUser.save();
+		console.log('saved to db');
+
+		return { success: true };
 	} catch (err) {
-		throw new Error('Failed to save a user');
+		console.log(err);
+		return { error: 'Something went wrong!' };
 	}
+};
+
+//로그인 서버액션 함수
+export const handleLogin = async (prevState, formData) => {
+	console.log('handleLogin');
+	const { username, password } = Object.fromEntries(formData);
+	console.log('인증값', username, password);
+
+	try {
+		await signIn('credentials', { username, password });
+		revalidatePath('/');
+		redirect('/');
+	} catch (err) {
+		console.log('인증에러');
+		console.log(err);
+
+		if (err.message.includes('CredentialsSignin')) {
+			return { error: 'Invalid username or password' };
+		}
+		throw err;
+	}
+};
+
+//로그아웃 서버액션 함수
+export const handleLogout = async () => {
+	'use server';
+	await signOut();
 	revalidatePath('/');
 	redirect('/');
 };
