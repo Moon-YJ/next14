@@ -1,9 +1,14 @@
 // action.js파일부터는 required말고 import 사용해도 됨(next가 제어하는 next의 기능이므로, connectDB.js와 model.js는 next의 기능이 아니므로 required 씀)
+// 해당 actions 함수 파일에서 서버 컴포넌트뿐만 아니라 클라이언트 컴포넌트에서도 호출하는 함수가 있다면 'use server'구문을 함수 안쪽에 각각 입력하는 것이 아니라 해당 파일 상단에 등록(권장)
+// 혹은 클라이언트 컴포넌트에서 호출하는 액션 함수를 다른 파일로 분리해야함
+'use server'; // 서버쪽에 데이터를 요청해야하므로 해당 구문 추가
 import { revalidatePath } from 'next/cache';
 import { connectDB } from './connectDB';
-import { Post } from './models';
+import { Post, User } from './models';
 import { redirect } from 'next/navigation';
+import bcrypt from 'bcryptjs';
 
+// post
 export const getPosts = async id => {
 	try {
 		connectDB();
@@ -37,7 +42,6 @@ export const getPostsPage = async page => {
 };
 
 export const addPosts = async data => {
-	'use server'; // 서버쪽에 데이터를 요청해야하므로 해당 구문 추가
 	//console.log(data); // 브라우저 콘솔창이 아닌 서버 터미널에서 확인 가능 //결과 - { name: 'title', value: 'ㅁㅁ' }, { name: 'img', value: 'ㅁㅁㅁ' }, { name: 'desc', value: 'ㅁㅁㅁ' }
 	const { title, img, desc } = Object.fromEntries(data); // 객체의 key값은 제외하고 value값만 뽑아서 key, value 객체로 반환해주는 메서드 //결과 - { title: 'ㅁㅁ', img: 'ㅁㅁㅁ', desc: 'ㅁㅁㅁ'}
 
@@ -53,7 +57,6 @@ export const addPosts = async data => {
 };
 
 export const deletePost = async formData => {
-	'use server';
 	try {
 		const data = Object.fromEntries(formData);
 		const id = Object.keys(data)[0];
@@ -68,7 +71,6 @@ export const deletePost = async formData => {
 };
 
 export const updatePost = async formData => {
-	'use server';
 	try {
 		// 수정페이지에서 입력한 input항목들을 받아서 객체로 비구조화할당
 		const { id, title, img, desc } = Object.fromEntries(formData);
@@ -83,4 +85,22 @@ export const updatePost = async formData => {
 	}
 	revalidatePath('/post');
 	redirect('/post');
+};
+
+// user
+// npm i bcryptjs
+export const addUsers = async data => {
+	const { username, email, password, repassword } = Object.fromEntries(data);
+	if (password !== repassword) return;
+	const salt = await bcrypt.genSalt(10);
+	const hashedPassword = await bcrypt.hash(password, salt); // 암호화 처리
+	try {
+		connectDB();
+		const newUser = new User({ username, email, password: hashedPassword });
+		await newUser.save();
+	} catch (err) {
+		throw new Error('Failed to save a user');
+	}
+	revalidatePath('/');
+	redirect('/');
 };
