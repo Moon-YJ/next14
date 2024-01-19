@@ -17,13 +17,13 @@ export default function Nav({ pages, session }) {
 	//console.log('nav'); // 브라우저 콘솔창에 찍힘(nav만 동적으로 가져옴)
 	const time = new Date().getTime();
 	//console.log(time, '::time');
-	const [Client, setClient] = useState(false);
+	//const [Client, setClient] = useState(false);
 
 	const customTxt = useCustomText('combined');
 
-	useEffect(() => {
-		setClient(true);
-	}, []);
+	// useEffect(() => {
+	// 	setClient(true);
+	// }, []);
 
 	return (
 		<nav className={clsx(styles.nav)}>
@@ -34,7 +34,7 @@ export default function Nav({ pages, session }) {
 					{customTxt(page)}
 				</Link>
 			))}
-			<p>{Client && time}</p>
+			{/* <p>{Client && time}</p> */}
 		</nav>
 	);
 }

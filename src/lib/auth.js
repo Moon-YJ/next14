@@ -23,16 +23,17 @@ import { User } from './models';
 import bcrypt from 'bcryptjs';
 import { authConfig } from './auth.config';
 
-//로그인 인증함수
-const login = async credentials => {
+// 로그인정보 DB정보에서 찾아서 인증 함수
+const checkUserDB = async credentials => {
 	try {
 		connectDB();
 
 		const user = await User.findOne({ username: credentials.username });
-		if (!user) throw new Error('Wrong credentials!');
-		const isPasswordCorrect = await bcrypt.compare(credentials.password, user.password);
+		if (!user) throw new Error('DB에 등록된 유저가 아닙니다(no username found in DB)');
 
-		if (!isPasswordCorrect) throw new Error('Wrong credentials!');
+		const isPasswordCorrect = await bcrypt.compare(credentials.password, user.password);
+		if (!isPasswordCorrect) throw new Error('비밀번호가 틀립니다(not matched password with DB)');
+
 		return user;
 	} catch (err) {
 		console.log(err);
@@ -40,7 +41,7 @@ const login = async credentials => {
 	}
 };
 
-//NextAuth의 리턴값을 바로 비구조화할당해서 export로 내보냄
+// NextAuth의 리턴값을 바로 비구조화할당해서 export로 내보냄
 export const {
 	handlers: { GET, POST },
 	auth,
@@ -49,41 +50,30 @@ export const {
 } = NextAuth({
 	...authConfig,
 	providers: [
+		// 기본 아이디 인증 Provider 설정
 		CredentialsProvider({
 			async authorize(credentials) {
 				try {
-					const user = await login(credentials);
+					const user = await checkUserDB(credentials);
 					return user;
 				} catch (err) {
-					return null;
+					return null; // null로 설정했기때문에 해당 파일의 에러 객체를 반환하지는 않고, LoginForm의 state에 담겨서 handleLogin안에 있는 에러가 반환됨
 				}
 			}
+		}),
+		// 깃허브 인증 Provider 설정
+		Github({
+			clientId: process.env.GITHUB_ID,
+			clientSecret: process.env.GITHUB_SECRET
 		})
 	],
-	//인증이 성공완료된 자동 실행될 callback함수(외부 autoConfig에서 가져옴)
+	// 인증이 성공완료된 자동 실행될 callback함수(외부 autoConfig에서 가져옴)
 	callbacks: {
+		// { user, account, profile } => 외부 sns로그인시 해당 서비스사에서 가져와야할 정보값 (현재는 DB에 저장된 값을 가져오고 있으므로 필요없음)
 		async signIn({ user, account, profile }) {
-			if (account.provider === 'github') {
-				connectDB();
-				try {
-					const user = await User.findOne({ email: profile.email });
-
-					if (!user) {
-						const newUser = new User({
-							username: profile.login,
-							email: profile.email,
-							image: profile.avatar_url
-						});
-
-						await newUser.save();
-					}
-				} catch (err) {
-					console.log(err);
-					return false;
-				}
-			}
 			return true;
 		},
+		// 기존 auth.config에 있는 callbacks는 override되면 안되기에 아래쪽에서 재 override처리
 		...authConfig.callbacks
 	}
 });

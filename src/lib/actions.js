@@ -6,8 +6,8 @@ import { revalidatePath } from 'next/cache';
 import { connectDB } from './connectDB';
 import { Post, User } from './models';
 import { redirect } from 'next/navigation';
-import bcrypt from 'bcryptjs';
 import { signIn, signOut } from './auth';
+import bcrypt from 'bcryptjs';
 
 // post
 export const getPosts = async id => {
@@ -89,7 +89,7 @@ export const updatePost = async formData => {
 };
 
 // npm i bcryptjs
-//User 데이터 추가 서버액션 함수
+// User 데이터 추가 서버액션 함수
 export const addUser = async (previousState, formData) => {
 	const { username, email, password, img, repassword } = Object.fromEntries(formData);
 
@@ -126,7 +126,7 @@ export const addUser = async (previousState, formData) => {
 	}
 };
 
-//로그인 서버액션 함수
+// 로그인 서버액션 함수
 export const handleLogin = async (prevState, formData) => {
 	console.log('handleLogin');
 	const { username, password } = Object.fromEntries(formData);
@@ -147,7 +147,12 @@ export const handleLogin = async (prevState, formData) => {
 	}
 };
 
-//로그아웃 서버액션 함수
+// 깃허브 로그인 서버액션 함수
+export const handleGithubLogin = async () => {
+	await signIn('github');
+};
+
+// 로그아웃 서버액션 함수
 export const handleLogout = async () => {
 	'use server';
 	await signOut();

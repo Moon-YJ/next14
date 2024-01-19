@@ -1,0 +1,14 @@
+.loginForm {
+	display: flex;
+	justify-content: center;
+	flex-wrap: wrap;
+	gap: 30px;
+	width: 400px;
+	margin: 100px auto;
+	padding: 20px;
+	border: 1px solid #555;
+	input[type='text'],
+	input[type='password'] {
+		width: 100%;
+	}
+}
