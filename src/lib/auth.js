@@ -17,6 +17,7 @@
 
 import NextAuth from 'next-auth';
 import CredentialsProvider from 'next-auth/providers/credentials';
+import Github from 'next-auth/providers/github';
 
 import { connectDB } from './connectDB';
 import { User } from './models';
@@ -63,6 +64,7 @@ export const {
 		}),
 		// 깃허브 인증 Provider 설정
 		Github({
+			// 깃허브에서
 			clientId: process.env.GITHUB_ID,
 			clientSecret: process.env.GITHUB_SECRET
 		})
@@ -71,6 +73,7 @@ export const {
 	callbacks: {
 		// { user, account, profile } => 외부 sns로그인시 해당 서비스사에서 가져와야할 정보값 (현재는 DB에 저장된 값을 가져오고 있으므로 필요없음)
 		async signIn({ user, account, profile }) {
+			console.log(user, account, profile, '!!!');
 			return true;
 		},
 		// 기존 auth.config에 있는 callbacks는 override되면 안되기에 아래쪽에서 재 override처리
