@@ -42,13 +42,13 @@ export const getPostsPage = async page => {
 	}
 };
 
-export const addPosts = async data => {
+export const addPosts = async formData => {
 	//console.log(data); // 브라우저 콘솔창이 아닌 서버 터미널에서 확인 가능 //결과 - { name: 'title', value: 'ㅁㅁ' }, { name: 'img', value: 'ㅁㅁㅁ' }, { name: 'desc', value: 'ㅁㅁㅁ' }
-	const { title, img, desc } = Object.fromEntries(data); // 객체의 key값은 제외하고 value값만 뽑아서 key, value 객체로 반환해주는 메서드 //결과 - { title: 'ㅁㅁ', img: 'ㅁㅁㅁ', desc: 'ㅁㅁㅁ'}
+	const { title, img, desc, username } = Object.fromEntries(formData); // 객체의 key값은 제외하고 value값만 뽑아서 key, value 객체로 반환해주는 메서드 //결과 - { title: 'ㅁㅁ', img: 'ㅁㅁㅁ', desc: 'ㅁㅁㅁ'}
 
 	try {
 		connectDB();
-		const newPost = new Post({ title, img, desc });
+		const newPost = new Post({ title, img, desc, username });
 		await newPost.save();
 	} catch (err) {
 		throw new Error('Failed to save a post');
@@ -86,6 +86,17 @@ export const updatePost = async formData => {
 	}
 	revalidatePath('/post');
 	redirect('/post');
+};
+
+export const getUser = async username => {
+	try {
+		connectDB();
+		const user = await User.findOne({ username: username });
+		return user;
+	} catch (err) {
+		console.log(err);
+		throw new Error('Fail to fetch User Info!');
+	}
 };
 
 // npm i bcryptjs

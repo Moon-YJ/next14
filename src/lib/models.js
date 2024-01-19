@@ -13,8 +13,7 @@ const postSchema = new mongoose.Schema(
 		img: {
 			type: String // 이미지는 optional(default가 required: false)
 		},
-		userid: { type: String },
-		username: { type: String, unique: true, required: true }
+		username: { type: String }
 	},
 	{ timestamps: true } // 시간 저장되게
 );

@@ -82,7 +82,7 @@ export const {
 			if (account.provider === 'github') {
 				connectDB();
 				try {
-					const user = await User.findOne({ email: profile.email }); // username은 겹칠수도 있으므로(동명이인)
+					const user = await User.findOne({ username: profile.login }); // username은 겹칠수도 있으므로(동명이인)
 					// DB에 user정보가 없으면 역으로 깃허브에서 해당 정보 가져와서 DB에 저장
 					if (!user) {
 						const newUser = new User({ username: profile.login, email: profile.email, img: profile.avatar_url });
