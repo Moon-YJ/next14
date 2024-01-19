@@ -21,7 +21,7 @@ export default async function Header() {
 
 			<Nav pages={['about', 'youtube', 'post', 'join']} session={session} />
 			{/* <NoSsrNav pages={['about', 'youtube', 'post']} /> */}
-			<BtnLogin session={false} />
+			<BtnLogin session={session} />
 			<BtnMobileMenu />
 		</header>
 	);

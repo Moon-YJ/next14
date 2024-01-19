@@ -18,6 +18,7 @@
 import NextAuth from 'next-auth';
 import CredentialsProvider from 'next-auth/providers/credentials';
 import Github from 'next-auth/providers/github';
+import Google from 'next-auth/providers/google';
 
 import { connectDB } from './connectDB';
 import { User } from './models';
@@ -67,13 +68,44 @@ export const {
 			// 깃허브에서
 			clientId: process.env.GITHUB_ID,
 			clientSecret: process.env.GITHUB_SECRET
+		}),
+		// 구글 인증 Provider설정
+		Google({
+			clientId: process.env.GOOGLE_CLIENT_ID || '',
+			clientSecret: process.env.GOOGLE_CLIENT_SECRET || ''
 		})
 	],
 	// 인증이 성공완료된 자동 실행될 callback함수(외부 autoConfig에서 가져옴)
 	callbacks: {
 		// { user, account, profile } => 외부 sns로그인시 해당 서비스사에서 가져와야할 정보값 (현재는 DB에 저장된 값을 가져오고 있으므로 필요없음)
 		async signIn({ user, account, profile }) {
-			console.log(user, account, profile, '!!!');
+			if (account.provider === 'github') {
+				connectDB();
+				try {
+					const user = await User.findOne({ email: profile.email }); // username은 겹칠수도 있으므로(동명이인)
+					// DB에 user정보가 없으면 역으로 깃허브에서 해당 정보 가져와서 DB에 저장
+					if (!user) {
+						const newUser = new User({ username: profile.login, email: profile.email, img: profile.avatar_url });
+						await newUser.save();
+					}
+				} catch (err) {
+					console.log(err);
+					return false;
+				}
+			}
+			if (account.provider === 'google') {
+				connectDB();
+				try {
+					const user = await User.findOne({ email: profile.email });
+					if (!user) {
+						const newUser = new User({ username: profile.name, email: profile.email, img: profile.picture });
+						await newUser.save();
+					}
+				} catch (err) {
+					console.log(err);
+					return false;
+				}
+			}
 			return true;
 		},
 		// 기존 auth.config에 있는 callbacks는 override되면 안되기에 아래쪽에서 재 override처리

@@ -12,17 +12,20 @@ const postSchema = new mongoose.Schema(
 		},
 		img: {
 			type: String // 이미지는 optional(default가 required: false)
-		}
+		},
+		userid: { type: String },
+		username: { type: String, unique: true, required: true }
 	},
 	{ timestamps: true } // 시간 저장되게
 );
 
 const userSchema = new mongoose.Schema(
 	{
-		username: { type: String, required: true },
+		username: { type: String, required: true, unique: true },
 		email: { type: String, required: true },
 		password: { type: String },
-		img: { type: String }
+		img: { type: String },
+		owner: { type: Boolean, default: false } // 추후 mongoDB에서 해당 사용자만 직접 true로 변경하기
 	},
 	{ timestamps: true }
 );

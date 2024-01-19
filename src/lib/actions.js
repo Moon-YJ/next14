@@ -152,6 +152,11 @@ export const handleGithubLogin = async () => {
 	await signIn('github');
 };
 
+// 구글 로그인 서버액션 함수
+export const handleGoogleLogin = async () => {
+	await signIn('google');
+};
+
 // 로그아웃 서버액션 함수
 export const handleLogout = async () => {
 	'use server';
