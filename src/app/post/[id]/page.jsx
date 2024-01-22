@@ -18,15 +18,13 @@ export default async function PostDetail({ params }) {
 			<h1>Post Detail</h1>
 			<article key={post._id}>
 				<div className={clsx(styles.pic)}>
-					{post.img ? (
-						<Image src={post.img} alt={post.title} priority fill sizes='(max-width: 768px) 60vw, (max-width: 1200px) 40vw, 30vw' />
-					) : (
-						<span></span>
-					)}
+					{post.img && <Image src={post.img} alt={post.title} priority fill sizes='(max-width: 768px) 60vw, (max-width: 1200px) 40vw, 30vw' />}
 				</div>
 				<div className={clsx(styles.txt)}>
 					<h2>{post.title}</h2>
 					<p>{post.desc}</p>
+					<p>글 작성일: {new Date(post.createdAt).toLocaleString()} </p>
+					<p>글 수정일: {new Date(post.updatedAt).toLocaleString()} </p>
 					{post && (
 						<Suspense fallback={<p>Loading...</p>}>
 							<UserInfo name={post.username} />

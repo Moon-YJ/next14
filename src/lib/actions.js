@@ -44,11 +44,13 @@ export const getPostsPage = async page => {
 
 export const addPosts = async formData => {
 	//console.log(data); // 브라우저 콘솔창이 아닌 서버 터미널에서 확인 가능 //결과 - { name: 'title', value: 'ㅁㅁ' }, { name: 'img', value: 'ㅁㅁㅁ' }, { name: 'desc', value: 'ㅁㅁㅁ' }
-	const { title, img, desc, username } = Object.fromEntries(formData); // 객체의 key값은 제외하고 value값만 뽑아서 key, value 객체로 반환해주는 메서드 //결과 - { title: 'ㅁㅁ', img: 'ㅁㅁㅁ', desc: 'ㅁㅁㅁ'}
+	//const { title, img, desc, username } = Object.fromEntries(formData); // 객체의 key값은 제외하고 value값만 뽑아서 key, value 객체로 반환해주는 메서드 //결과 - { title: 'ㅁㅁ', img: 'ㅁㅁㅁ', desc: 'ㅁㅁㅁ'}
+	const result = Object.fromEntries(formData);
+	const { title, img, desc, email } = result;
 
 	try {
 		connectDB();
-		const newPost = new Post({ title, img, desc, username });
+		const newPost = new Post({ title, img, desc, email: email });
 		await newPost.save();
 	} catch (err) {
 		throw new Error('Failed to save a post');

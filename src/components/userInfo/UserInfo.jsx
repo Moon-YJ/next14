@@ -6,11 +6,15 @@ import Image from 'next/image';
 export default async function UserInfo({ name }) {
 	const user = await getUser(name);
 	return (
-		<article className={clsx(styles.userInfo)}>
-			<p>{user?.email}</p>
-			<div className={styles.pic}>
-				<Image src={user?.img} width={50} height={50} alt={user?.email} />
-			</div>
-		</article>
+		<>
+			{user && (
+				<article className={clsx(styles.userInfo)}>
+					<p>{user?.email}</p>
+					<div className={styles.pic}>
+						<Image src={user?.img} width={50} height={50} alt={user?.email} />
+					</div>
+				</article>
+			)}
+		</>
 	);
 }
