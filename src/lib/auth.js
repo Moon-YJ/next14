@@ -96,7 +96,7 @@ export const {
 			if (account.provider === 'google') {
 				connectDB();
 				try {
-					const user = await User.findOne({ email: profile.email });
+					const user = await User.findOne({ username: profile.name });
 					if (!user) {
 						const newUser = new User({ username: profile.name, email: profile.email, img: profile.picture });
 						await newUser.save();

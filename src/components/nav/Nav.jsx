@@ -27,8 +27,7 @@ export default function Nav({ pages, session }) {
 
 	return (
 		<nav className={clsx(styles.nav)}>
-			{session?.user ? '로그인됨' : '비로그인상태'}
-			{/* 해결방법1 */}
+			{session?.user ? session.user.email : '비로그인상태'}
 			{pages.map(page => (
 				<Link key={page} href={`/${page}`} className={clsx(pathName === `/${page}` ? styles.on : '')}>
 					{customTxt(page)}
