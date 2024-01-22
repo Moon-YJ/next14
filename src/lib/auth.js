@@ -112,3 +112,17 @@ export const {
 		...authConfig.callbacks
 	}
 });
+
+/*
+	NextAuth()메서드 호출시 전달되는 인수값
+	
+	pages: 로그인 요청이 시작되는 라우터등록 (auth.config)
+	providers: credentials, github, google등 vender정보 기입
+	callbacks: 로그인인증 결과후 동기적으로 실행될 함수들
+	---signIn() : 로그인이 성공했을때 실행될 함수, 로그인정보 추출 및 DB저장
+	---jwt() : siginIn함수에서 추출한 정보값을 token에 옮겨담음
+	---session() : 넘겨받은 token값을 전역 session에 등록
+	---authorized() : 최종 로그인인증 결과에 따라 true, false값을 반환 (auth.config)
+	------------------------------------------------------------
+	middleware.js : NextAuth에서 authorized()가 반환하는 true, false값에 따라 강제 라우터 이동처리 (auth.config에 등록된 pages, authorized값 필요)
+*/

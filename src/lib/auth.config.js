@@ -2,7 +2,7 @@
 // 해당 파일은 middleware.js에서 authConfig객체의 결과값만 따로 활용하기 위함
 export const authConfig = {
 	pages: {
-		// signIn함수가 실행될때 기본으로 redirect되는 path지정
+		// signIn 메서드가 실행될때 기본으로 redirect되는 path지정
 		signIn: '/login'
 	},
 	// auth에 spread로 합쳐질때 기존 provider가 override할것이므로 빈배열지정
