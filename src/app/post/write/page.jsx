@@ -4,6 +4,7 @@ import { addPosts } from '@/lib/actions';
 import InputImage from '@/components/inputImage/InputImage';
 // import Unsplash from '@/components/unsplash/Unsplash';
 import { auth } from '@/lib/auth';
+import UploadImage from '@/components/uploadImage/UploadImage';
 
 export default async function Write() {
 	const session = await auth();
@@ -16,6 +17,7 @@ export default async function Write() {
 					<input type='hidden' name='username' value={session.user.name} />
 					<input type='text' placeholder='title' name='title' />
 					<InputImage />
+					<UploadImage />
 					<textarea name='desc' cols='30' rows='3' placeholder='description'></textarea>
 
 					<nav>
