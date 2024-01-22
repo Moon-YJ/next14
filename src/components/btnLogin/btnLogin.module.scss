@@ -8,8 +8,8 @@
 	border-radius: 15px;
 	cursor: pointer;
 	transition: background-color 0.3s, border 0.3s;
-	&.logout {
-		background-color: var(--text);
+	&.btnLogout {
+		background: var(--text);
 		color: var(--bg);
 	}
 	&:hover {

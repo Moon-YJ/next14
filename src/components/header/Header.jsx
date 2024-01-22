@@ -19,7 +19,7 @@ export default async function Header() {
 				<Link href='/'>ABC Company</Link>
 			</h1>
 
-			<Nav pages={['about', 'youtube', 'post', 'join']} session={session} />
+			<Nav pages={session?.user ? ['about', 'youtube', 'post'] : ['about', 'youtube', 'join']} session={session} />
 			{/* <NoSsrNav pages={['about', 'youtube', 'post']} /> */}
 			<BtnLogin session={session} />
 			<BtnMobileMenu />

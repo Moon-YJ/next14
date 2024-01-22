@@ -15,13 +15,17 @@ export const authConfig = {
 		async jwt({ token, user }) {
 			if (user) {
 				token.id = user.id;
+				token.owner = token.name === 'Moon-YJ' ? true : false;
 			}
 			return token;
 		},
 		// 토큰값을 전달받아 전역 session 객체로 반환함수
 		// 토큰값을 다시 전역 session에 넘겨서 리턴
 		async session({ session, token }) {
-			if (token) session.user.id = token.id;
+			if (token) {
+				session.user.id = token.id;
+				session.user.owner = token.owner;
+			}
 			return session;
 		},
 		// 인증처리시에만 접근가능한 URL 설정(인증처리시 redirect될 path를 조건지정)

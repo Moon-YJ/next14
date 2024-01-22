@@ -9,7 +9,7 @@ import clsx from 'clsx';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import styles from './nav.module.scss';
-import { useEffect, useState } from 'react';
+//import { useEffect, useState } from 'react';
 import { useCustomText } from '@/hooks/useText';
 
 export default function Nav({ pages, session }) {
