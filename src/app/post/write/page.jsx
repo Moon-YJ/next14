@@ -5,6 +5,7 @@ import InputImage from '@/components/inputImage/InputImage';
 // import Unsplash from '@/components/unsplash/Unsplash';
 import { auth } from '@/lib/auth';
 import ImageUploader from '@/components/uploadImage/UploadImage';
+import BtnSubmit from '@/components/btnSubmit/BtnSubmit';
 
 export default async function Write() {
 	const session = await auth();
@@ -22,7 +23,8 @@ export default async function Write() {
 
 					<nav>
 						<input type='reset' value='cancel' />
-						<input type='submit' value='write' />
+						{/* <input type='submit' value='write' /> */}
+						<BtnSubmit />
 					</nav>
 				</form>
 			</section>
