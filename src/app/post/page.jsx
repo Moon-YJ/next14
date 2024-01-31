@@ -1,10 +1,7 @@
 import clsx from 'clsx';
 import styles from './post.module.scss';
-import { getPostsPage } from '@/lib/actions';
-import Image from 'next/image';
-import Link from 'next/link';
-import Pagination from '@/components/pagination/Pagination';
-import { auth } from '@/lib/auth';
+import PostList from '@/components/postList/PostList';
+import { Suspense } from 'react';
 
 export default async function Post({ searchParams }) {
 	const session = await auth();
@@ -16,24 +13,9 @@ export default async function Post({ searchParams }) {
 	return (
 		<section className={clsx(styles.post)}>
 			<h1>Post</h1>
-			{/* Pagination컴포넌트를 호출하고 전체 포스트갯수와 페이지당 포스트 개수 전달 */}
-			<Pagination total={total} nums={nums} />
-			<nav>
-				<Link href='/post/write'>Write Post</Link>
-			</nav>
-			{posts.map(post => {
-				return (
-					<article key={post._id}>
-						<div className={clsx(styles.pic)}>
-							{post.img && <Image src={post.img} alt={post.title} priority fill sizes='(max-width: 768px) 60vw, (max-width: 1200px) 40vw, 30vw' />}
-						</div>
-						<h2>
-							<Link href={`/post/${post._id}`}>{post.title}</Link>
-						</h2>
-						<p>{post.desc}</p>
-					</article>
-				);
-			})}
+			<Suspense fallback={<p>Loading...</p>}>
+				<PostList />
+			</Suspense>
 		</section>
 	);
 }
