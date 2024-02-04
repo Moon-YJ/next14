@@ -8,3 +8,7 @@ export default function NotFound() {
 		</div>
 	);
 }
+
+/*
+	요청 url에 연결된 라우터 컴포넌트 페이지가 없을때(404에러) 대신 출력할 페이지
+*/

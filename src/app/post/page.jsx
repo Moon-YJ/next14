@@ -4,8 +4,6 @@ import PostList from '@/components/postList/PostList';
 import { Suspense } from 'react';
 
 export default async function Post({ searchParams }) {
-	//const session = await auth();
-
 	return (
 		<section className={clsx(styles.post)}>
 			<h1>Post</h1>

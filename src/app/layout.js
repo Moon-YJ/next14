@@ -28,3 +28,9 @@ export default function RootLayout({ children }) {
 		</html>
 	);
 }
+
+/*
+	app > layout.jsx : 메인페이지 전용 레이아웃 호출
+	app폴더 안쪽의 모든 컴포넌트 파일은 기본적으로 ssr방식으로 동작하는 페이지 
+	해당 페이지 컴포넌트에저 전역 style.scss연결 및 전역 state연결하는 GlobalProvider wrapping처리
+*/

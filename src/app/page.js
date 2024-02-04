@@ -8,3 +8,7 @@ export default function Home() {
 		</main>
 	);
 }
+
+/*
+	메인 페이지에 전용으로 보여줄 컴포넌트 layout.jsx의 children으로 출력될 페이지
+*/
