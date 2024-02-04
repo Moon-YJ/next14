@@ -25,3 +25,8 @@ export default async function Detail({ params }) {
 		</section>
 	);
 }
+
+/*
+	Youtube 목록 클릭시 출력될 상세페이지 다이나믹 라우터 페이지
+	14버전에서는 상세페이지도 미리 서버쪽에서 pre-render 가능	
+*/

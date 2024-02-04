@@ -23,3 +23,10 @@ export default async function Youtube() {
 		</section>
 	);
 }
+
+/*
+	fetchYoutube: 서버쪽에서 유튜브 데이터 fetching함수 (async await 동기화해서 데이터 리턴)
+	Youtube: fetchYoutube로 부터 넘겨받은 데이터로 미리 서버단에서 data pre-render 처리
+	isPriority: 해당 페이지에서 client방식으로 동작할 컴포넌트의 이미지의 우선선위 설정을 위한 prop전달
+	isPrefetch: client 방식으로 동작할 Link컴포넌트의 prefetch를 위한 props전달
+*/
