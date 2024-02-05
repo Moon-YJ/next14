@@ -42,3 +42,20 @@ export default async function Write() {
 	5. components > userInfo (getUser) -> getUser서버 액션함수가 email값을 전달받아서 해당 유저정보객체 반환
 	6. 반환된 유저정보를 userInfo컴포넌트에 원하는 형태로 출력
 */
+
+/*
+	글작성 페이지 컴포넌트
+	- server action으로 form안쪽의 <BtnSubmit /> 에서 클릭 이벤트 발생시 form action의 addPost 서버액션 함수 실행됨
+	- addPost 함수는 (lib> action.js 파일 참조)
+
+	<BtnSubmit /> 컴포넌트를 따로 분리한 이유 
+	- 해당 페이지는 서버방식으로 고수하고 이벤트 호출만 클라이언트로 처리하기 위함
+	- BtnSubmit 안쪽에서 버튼 클릭시 로딩바처리를 위한 useFormStatus 훅을 사용하기 위함
+
+	<InputImage /> 
+	- Flickr API로 부터 추천 이미지 검색후 input form에 넣어주는 클라이언트 방식 컴포넌트	
+	
+	<ImageUploader />
+	- 파일 업로드시 내 컴퓨터의 이미지를 찾아서 이미지 전용 서버에 업로드후 해당 url을 input form에 넣어주는 클라이언트 방식 컴포넌트
+	- uploadthing 이미지호스팅 전용 외부 라이브러리 활용
+*/

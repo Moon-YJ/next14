@@ -49,3 +49,21 @@ export default async function PostDetail({ params }) {
 		</div>
 	);
 }
+
+/*
+	글 상세페이지 전용 페이지 컴포넌트 
+	- 페이지 접속시 params로 해당글 고유값을 넘겨받아서 서버액션함수 getPosts로 해당 데이터 넘겨받아서 pre-render
+	- 상세페이지에서 글 작성자 정보 데이터만 외부 컴포넌트로 분리후 Suspense로 동기화처리
+	- 상세페이지에서 글 수정, 글 삭제 버튼이 있으므로 글 작성자만 수정, 삭제 가능하도록 auth로 인증 정보 받아서 조건부 렌더링
+	- 글 작성자와 로그인된 현재 사용자의 정보가 일치할때만 수정, 삭제버튼 출력
+	- 수정 버튼 클릭시 수정 페이지 컴포넌트로 라우터 이동
+	- 삭제 버튼 클릭시 서버 액션으로 deletePost함수 호출
+
+	auth 인증 객체
+	- nextAuth로 인증정보 클라이언트측에서 전달받음
+	- lib > auth.jsx 에서 확인
+
+	getPosts, deletePost 
+	- 서버 전용 액션함수
+	- lib > action.js에서 확인
+*/
