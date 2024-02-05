@@ -79,3 +79,12 @@ export default function Flickr() {
 		6. 부모 컴포넌트 InputImage의 input 요소에는 전역 state에 의해서 클릭한 Flickr 썸네일 image URL 전달
 		7. 상위 부모인 write/page.jsx, edit/page.jsx 컴포넌트에서 action이벤트 발생시 전달된 image URL값을 post Model에 저장
 */
+
+/*
+	추천 이미지 검색 버튼 클릭시 호출되는 컴포넌트 (components > InputImage.jsx에서 호출)
+	- InputImage컴포넌트의 추천이미지 버튼 클릭시 호출되는 패널 
+	- 해당 패널안쪽에 우선 Flickr API의 interestingness 추천 이미지 썸네일 출력
+	- 검색창에 검색어 입력하고 검색이벤트 발생시 해당 키워드로 이미지 썸네일 출력
+	- 특정 썸네일 클릭시 해당 썸네일의 이미지 URL을 globlaData훅으로 전역에 전달
+	- InputImage컴포넌트에서 전역의 전달된 이미지 URL을 input에 옮겨줌
+*/

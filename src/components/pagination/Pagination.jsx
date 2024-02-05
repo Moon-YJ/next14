@@ -43,3 +43,9 @@ export default function Pagination({ total, nums }) {
 		</nav>
 	);
 }
+
+/*
+	PostList컴포넌트로 부터 호출되는 게시글 페이지번호 출력 컴포넌트 (components > PageList.jsx에서 호출됨)
+	- 부모로부터 서버쪽의 전체 post 개수 현재 페이지 번호를 props로 받아 페이지 번호에 맞는 페이지 번호 출력 및 활성화
+	- 코드 상세 설명은 위의 주석 참조
+*/

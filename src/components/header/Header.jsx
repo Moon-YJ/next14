@@ -26,3 +26,10 @@ export default async function Header() {
 		</header>
 	);
 }
+
+/*
+	메인 레이아웃 페이지 전역에서 호출되는 헤더 컴포넌트 (app > layout.jsx에서 호출됨)
+	- sever방식으로 렌더링
+	- 주메뉴, 로그인버튼, 토글메뉴 컴포넌트 출력
+	- 인증 정보를 받아서 session정보를 주메뉴, 로그인버튼에 props로 전달
+*/

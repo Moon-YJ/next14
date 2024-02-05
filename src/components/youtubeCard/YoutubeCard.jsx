@@ -35,3 +35,10 @@ export default function YoutubeCard({ data, isPriority, isPrefetch }) {
 		</article>
 	);
 }
+
+/*
+	Youtube Page컴포넌트에서 서버쪽에서 fetching된 데이터로 각각의 썸네일 목록 출력 (app > youtube > page.jsx에서 호출됨)
+	- props로 데이터 배열, isPriority , isPrefetch정보를 전달받아
+	- 목록을 출력하면서 특정 순번의 포스트목록의 이미지까지만 priority 설정
+	- 특정 순번의 포스트목록까지만 Link에 prefetch 설정
+*/

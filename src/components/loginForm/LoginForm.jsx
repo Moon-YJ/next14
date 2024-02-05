@@ -27,3 +27,11 @@ export default function LoginForm() {
 		</article>
 	);
 }
+
+/*
+	로그인 페이지에서 호출되는 컴포넌트 (app > (auth) > login > page.jsx에서 호출)
+	- 로그인 정보 입력후 로그인 버튼 클릭시 로그인 관련 서버액션 실행 컴포넌트 
+	- useFormState 로 handleLogin 서버액션 함수 호출
+	- 인증 결과값을 state에 담아 로그인 실패시 강제로 회원가입 페이지로 이동 
+	- 로그인 성공시 lib > auth.js(NextAuth), middleware.js를 활용해 강제 메인 페이지로 이동
+*/

@@ -37,3 +37,11 @@ export default function Nav({ pages, session }) {
 		</nav>
 	);
 }
+
+/*
+	Header에서 출력되는 메뉴 컴포넌트 (components > Header.jsx에서 호출됨)
+	- header로 부터 메뉴명 배열로 전달받고 session정보도 props로 전달받음
+	- 전달받은 배열 메뉴명으로 메뉴 반복 출력하고 활성화 유무 처리
+	- 전달받은 메뉴 Capitalize처리
+	- 전달받은 session정보값으로 로그인 상태 출력
+*/

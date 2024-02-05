@@ -31,3 +31,11 @@ export default async function PostList({ searchParams }) {
 		</section>
 	);
 }
+
+/*
+	post페이지에서 서버 데이터를 받아 포스트 목록 출력해주는 컴포넌트 (app > post > page.jsx에서 호출됨)
+	- getPostsPage 서버액션 함수를 호출하여 서버 포스트 데이터 fetching및 초기 데이터 목록 렌더링
+	- getPostsPage(현재 페이지번호) : 해당 페이지 번호에 대한 데이터만 서버로부터 끊어서 가져옴 (lib > actions.js 참조)
+	- Pagination컴포넌트로 현재 페이지 호출 번호 출력 (components > Pagination.jsx 참조)
+	- wirte버튼 클릭시 라우터로 Write > page.jsx 로 링크 이동
+*/
