@@ -43,3 +43,17 @@ export const authConfig = {
 		}
 	}
 };
+
+/*
+	- 해당 정보값이 auth.js에 전개연산자로 합쳐짐
+	- 따로 분리한 이유는 middleware.js에서 라우터 이동시 해당 정보값만 따로 필요하기 때문
+	- auth.js에서 인증된 결과값을 session에 옮겨담고 전역 컴포넌트에 전달 처리 
+	- 인증 결과에 따라 미리 설정된 middleware.js에 의해 강제 라우터 이동
+	- 해당 auth.js의 요청은 api폴더 안쪽의 api > auth > [...nextauth] > route.js에서 응답 처리
+	- route.js 서버응답 함수는 auth.js의 nextAuth가 반환
+	- 구글, 깃허브 인증 요청시 api.js로의 요청 url 전달은 .env파일에서 리다이렉트 url등록 및 github, google 개발페이지에 url등록
+	- middleware.js (middleware.js에서 주석 참조)
+	- auth.js (lib > auth.js 주석 참조)
+	- api 요청 응답 (api > auth > [...nextauth] > route.js 주석 참조)
+	- 인증 관련 api 요청 url 연결 (.env 파일 참조)
+*/

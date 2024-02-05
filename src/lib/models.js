@@ -41,3 +41,7 @@ export const User = mongoose.models.User || mongoose.model('User', userSchema);
   - MongoDB 구조(noSQL)
     : Database - collection(배열) - document(모델 객체)
 */
+
+/*
+	유저, 포스트 정보 관련 모델 스키마 생성
+*/

@@ -21,3 +21,6 @@ export const connectDB = async () => {
 		throw new Error('Failed to connect to DB');
 	}
 };
+
+// 몽고 DB접속 파일
+// 몽고 DB접속이 이미 되어 있으면 중복 접속처리 하지 않음

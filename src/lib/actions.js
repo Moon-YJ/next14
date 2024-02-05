@@ -10,6 +10,7 @@ import { signIn, signOut } from './auth';
 import bcrypt from 'bcryptjs';
 
 // post
+// 전달된 post id값을 이용하여 해당 다큐먼트 객체 하나만 DB로 부터 가져와서 반환
 export const getPosts = async id => {
 	try {
 		connectDB();
@@ -24,6 +25,7 @@ export const getPosts = async id => {
 };
 
 // 인수로 받은 현재 페이지번호에 따라 다음의 정보를 반환하는 함수
+// 특정 페이지 번호를 인수로 받아서 해당 페이지번호에 출력될 포스트 객체만 DB로부터 반환
 // {전체 데이터 개수, 출력될 포스트 배열, 현재페이지에 보일 데이터 개수}
 export const getPostsPage = async page => {
 	const nums = 3; // 한 페이지당 보일 post 개수 설정
@@ -42,6 +44,7 @@ export const getPostsPage = async page => {
 	}
 };
 
+// 글 작성시 전달된 포스트 정보를 받아서 새로운 Post 인스턴스 모델 생성후 DB에 저장
 export const addPosts = async formData => {
 	//console.log(data); // 브라우저 콘솔창이 아닌 서버 터미널에서 확인 가능 //결과 - { name: 'title', value: 'ㅁㅁ' }, { name: 'img', value: 'ㅁㅁㅁ' }, { name: 'desc', value: 'ㅁㅁㅁ' }
 	//const { title, img, desc, username } = Object.fromEntries(formData); // 객체의 key값은 제외하고 value값만 뽑아서 key, value 객체로 반환해주는 메서드 //결과 - { title: 'ㅁㅁ', img: 'ㅁㅁㅁ', desc: 'ㅁㅁㅁ'}
@@ -59,6 +62,7 @@ export const addPosts = async formData => {
 	redirect('/post'); // post 목록페이지로 이동
 };
 
+// 글 삭제 이벤트 발생시 삭제할 post객체의 id를 뽑아서 해당 id의 document만 DB에서 제거
 export const deletePost = async formData => {
 	try {
 		const data = Object.fromEntries(formData);
@@ -73,6 +77,7 @@ export const deletePost = async formData => {
 	redirect('/post');
 };
 
+// 글 수정 이벤트 발생시 수정할 post객체의 정보를 받아서 매칭되는 id의 포스트 document를 찾아서 DB에 덮어쓰기
 export const updatePost = async formData => {
 	try {
 		// 수정페이지에서 입력한 input항목들을 받아서 객체로 비구조화할당
@@ -90,6 +95,7 @@ export const updatePost = async formData => {
 	redirect('/post');
 };
 
+// 사용자의 이메일값을 인수로 받아서 post collections로 부터 해당 이메일과 매칭되는 document만 반환
 export const getUser = async username => {
 	try {
 		connectDB();
@@ -103,6 +109,7 @@ export const getUser = async username => {
 
 // npm i bcryptjs
 // User 데이터 추가 서버액션 함수
+// 회원가입 버튼 클릭시 전달된 회원 정보 객체를 DB에 추가
 export const addUser = async (previousState, formData) => {
 	const { username, email, password, img, repassword } = Object.fromEntries(formData);
 
@@ -140,6 +147,8 @@ export const addUser = async (previousState, formData) => {
 };
 
 // 로그인 서버액션 함수
+// 로그인 버튼 클릭시 NextAuth가 반환한 signIn함수를 호출하여 로그인 처리
+// signIn (lib > auth.js, auth.config.js 참조)
 export const handleLogin = async (prevState, formData) => {
 	console.log('handleLogin');
 	const { username, password } = Object.fromEntries(formData);
@@ -161,16 +170,22 @@ export const handleLogin = async (prevState, formData) => {
 };
 
 // 깃허브 로그인 서버액션 함수
+// 깃허브 로그인 버튼 클릭시 NextAuth가 반환한 singIn함수를 호출한뒤 github인수를 전달하여 github로그인 처리
+// signIn (lib > auth.js, auth.config.js 참조)
 export const handleGithubLogin = async () => {
 	await signIn('github');
 };
 
 // 구글 로그인 서버액션 함수
+// 구글 로그인 버튼 클릭시 NextAuth가 반환한 singIn함수를 호출한뒤 google인수를 전달하여 google로그인 처리
+// signIn (lib > auth.js, auth.config.js 참조)
 export const handleGoogleLogin = async () => {
 	await signIn('google');
 };
 
 // 로그아웃 서버액션 함수
+// 로그아웃 번튼 클릭시 NextAuth가 반환한 signOut함수 호출하여 로그아웃 처리
+// signIn (lib > auth.js, auth.config.js 참조)
 export const handleLogout = async () => {
 	'use server';
 	await signOut();
